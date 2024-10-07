@@ -6,10 +6,28 @@ import './App.css';
 function App() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const handleLogin = async () => {
-    console.log(user);
-    console.log(password);
+      try {
+        console.log(user, password);
+        const userToInsert = {
+          user: toString(user),
+          pass: toString(password)
+        }
+        const apiUrl = `http://localhost:3000/insertUser?user=${user}&pass=${password}`;
+
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userToInsert),
+        });
+        const result = await response.json();
+        console.log("User document inserted:", result);
+      } catch (err) {
+        console.error("Error inserting user data:", err);
+      }
   };
 
   return (

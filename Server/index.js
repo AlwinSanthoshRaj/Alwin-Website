@@ -2,6 +2,7 @@ const { MongoClient } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { log } = require('console');
 const uri = "mongodb+srv://alwinsanthoshraj123:Alwin@cluster0.wdqmc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 const port = process.env.PORT || 3000;
 const app = express();
@@ -18,14 +19,14 @@ app.get('/', async (req, res) => {
   });
   
 app.post('/insertUser', async (req, res) => {
-    const { user, pass } = req.body;
+    const { user, pass } = req.query;
     try {
         const connection = await clientPromise;
         const db = connection.db("Alwin");
         const collection = db.collection("Users");
-    
+        console.log(user, pass);
         const result = await collection.insertOne({ user, pass });
-        res.status(200).json({ message: "User inserted successfully", result });
+        res.status(200).json({ user, pass, message: "User inserted successfully", result });
       } catch (error) {
         console.error("Error inserting user data:", error);
         res.status(500).json({ error: "Error inserting user data" });
