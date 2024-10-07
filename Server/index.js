@@ -13,6 +13,10 @@ if (!client) {
   clientPromise = client.connect();
 }
 app.use(bodyParser.json());
+app.get('/', async (req, res) => {
+    res.status(200).send("The server is running perfectly");
+  });
+  
 app.post('/insertUser', async (req, res) => {
     const { user, pass } = req.body;
     try {
