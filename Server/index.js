@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const uri = "mongodb+srv://alwinsanthoshraj123:Alwin@cluster0.wdqmc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 let client;
 let clientPromise;
